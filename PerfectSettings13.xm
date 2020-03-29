@@ -5,6 +5,7 @@
 static HBPreferences *pref;
 static BOOL disableEdgeToEdgeCells;
 static BOOL circleIcons;
+static BOOL hideArrow;
 
 // ------------------------- BETTER SETTINGS UI -------------------------
 
@@ -28,7 +29,7 @@ static BOOL circleIcons;
 
 // ------------------------- CIRCLE ICONS -------------------------
 
-%group circleIconsGroup
+%group editPSTableCellGroup
 
 	%hook PSTableCell
 
@@ -36,11 +37,13 @@ static BOOL circleIcons;
 	{
 		%orig;
 
-		if(self && self.imageView && self.imageView.layer)
+		if(circleIcons && [self imageView])
 		{
-			self.imageView.layer.cornerRadius = 14.5; // full width = 29
-			self.imageView.layer.masksToBounds = YES;
+			[[[self imageView] layer] setCornerRadius: 14.5]; // full width = 29
+			[[[self imageView] layer] setMasksToBounds: YES];
 		}
+
+		if(hideArrow) [self setForceHideDisclosureIndicator: YES];
 	}
 
 	%end
@@ -52,11 +55,18 @@ static BOOL circleIcons;
 	@autoreleasepool
 	{
 		pref = [[HBPreferences alloc] initWithIdentifier: @"com.johnzaro.perfectsettings13prefs"];
+		[pref registerDefaults:
+		@{
+			@"disableEdgeToEdgeCells": @NO,
+			@"circleIcons": @NO,
+			@"hideArrow": @NO
+    	}];
 
-		[pref registerBool: &disableEdgeToEdgeCells default: YES forKey: @"disableEdgeToEdgeCells"];
-		[pref registerBool: &circleIcons default: YES forKey: @"circleIcons"];
+		disableEdgeToEdgeCells = [pref boolForKey: @"disableEdgeToEdgeCells"];
+		circleIcons = [pref boolForKey: @"circleIcons"];
+		hideArrow = [pref boolForKey: @"hideArrow"];
 
 		if(disableEdgeToEdgeCells) %init(disableEdgeToEdgeCellsGroup);
-		if(circleIcons) %init(circleIconsGroup);
+		if(circleIcons || hideArrow) %init(editPSTableCellGroup);
 	}
 }

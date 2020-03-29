@@ -22,7 +22,7 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<true/>
+			<false/>
 			<key>defaults</key>
 			<string>com.johnzaro.perfectsettings13prefs</string>
 			<key>key</key>
@@ -34,13 +34,25 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<true/>
+			<false/>
 			<key>defaults</key>
 			<string>com.johnzaro.perfectsettings13prefs</string>
 			<key>key</key>
 			<string>circleIcons</string>
 			<key>label</key>
 			<string>Enable Circle Icons</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettings13prefs</string>
+			<key>key</key>
+			<string>hideArrow</string>
+			<key>label</key>
+			<string>Hide Arrow</string>
 		</dict>
 		<dict>
         	<key>cell</key>
