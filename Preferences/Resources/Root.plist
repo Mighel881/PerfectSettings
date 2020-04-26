@@ -16,7 +16,67 @@
         	<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>SETTINGS</string>
+			<string>TITLE</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettings13prefs</string>
+			<key>key</key>
+			<string>enableCustomTitle</string>
+			<key>label</key>
+			<string>Enable Custom Title</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>default</key>
+			<string>PerfectSettings</string>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettings13prefs</string>
+			<key>key</key>
+			<string>customTitle</string>
+			<key>label</key>
+			<string>Custom Title</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>SEARCH BAR</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettings13prefs</string>
+			<key>key</key>
+			<string>roundSearchBar</string>
+			<key>label</key>
+			<string>Round Search Bar</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettings13prefs</string>
+			<key>key</key>
+			<string>hideSearchBar</string>
+			<key>label</key>
+			<string>Hide Search Bar</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>CELLS</string>
         </dict>
 		<dict>
 			<key>cell</key>
@@ -38,6 +98,36 @@
 			<key>defaults</key>
 			<string>com.johnzaro.perfectsettings13prefs</string>
 			<key>key</key>
+			<string>hideArrow</string>
+			<key>label</key>
+			<string>Hide Arrow</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettings13prefs</string>
+			<key>key</key>
+			<string>hideCellSeparator</string>
+			<key>label</key>
+			<string>Hide Cell Separator</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>ICONS</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettings13prefs</string>
+			<key>key</key>
 			<string>circleIcons</string>
 			<key>label</key>
 			<string>Enable Circle Icons</string>
@@ -50,9 +140,9 @@
 			<key>defaults</key>
 			<string>com.johnzaro.perfectsettings13prefs</string>
 			<key>key</key>
-			<string>hideArrow</string>
+			<string>hideIcons</string>
 			<key>label</key>
-			<string>Hide Arrow</string>
+			<string>Hide Circle Icons</string>
 		</dict>
 		<dict>
         	<key>cell</key>
