@@ -16,6 +16,26 @@
         	<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
+			<string>ORGANIZE SETTINGS</string>
+			<key>footerText</key>
+			<string>SHOWS 'APPLE APPS', 'TWEAKS' AND '3RD PARTY APPS' SECTIONS ON TOP OF THE SETTINGS PAGE.</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettings13prefs</string>
+			<key>key</key>
+			<string>organizeSettings</string>
+			<key>label</key>
+			<string>Organize Settings</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
 			<string>TITLE</string>
         </dict>
 		<dict>

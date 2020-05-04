@@ -1,6 +1,7 @@
 #import "PerfectSettings13.h"
-
 #import <Cephei/HBPreferences.h>
+
+extern void initPreferenceOrganizer();
 
 static HBPreferences *pref;
 static BOOL enableCustomTitle;
@@ -12,6 +13,7 @@ static BOOL hideArrow;
 static BOOL hideCellSeparator;
 static BOOL roundSearchBar;
 static BOOL hideSearchBar;
+static BOOL organizeSettings;
 
 %group enableCustomTitleGroup
 
@@ -134,7 +136,6 @@ static BOOL hideSearchBar;
 {
 	@autoreleasepool
 	{
-		// %init;
 		pref = [[HBPreferences alloc] initWithIdentifier: @"com.johnzaro.perfectsettings13prefs"];
 		[pref registerDefaults:
 		@{
@@ -146,7 +147,8 @@ static BOOL hideSearchBar;
 			@"hideArrow": @NO,
 			@"hideCellSeparator": @NO,
 			@"roundSearchBar": @NO,
-			@"hideSearchBar": @NO
+			@"hideSearchBar": @NO,
+			@"organizeSettings": @NO
     	}];
 
 		enableCustomTitle = [pref boolForKey: @"enableCustomTitle"];
@@ -158,6 +160,7 @@ static BOOL hideSearchBar;
 		hideCellSeparator = [pref boolForKey: @"hideCellSeparator"];
 		roundSearchBar = [pref boolForKey: @"roundSearchBar"];
 		hideSearchBar = [pref boolForKey: @"hideSearchBar"];
+		organizeSettings = [pref boolForKey: @"organizeSettings"];
 
 		if(enableCustomTitle) %init(enableCustomTitleGroup);
 		if(disableEdgeToEdgeCells) %init(disableEdgeToEdgeCellsGroup);
@@ -166,5 +169,6 @@ static BOOL hideSearchBar;
 		if(hideCellSeparator) %init(hideCellSeparatorGroup);
 		if(roundSearchBar) %init(roundSearchBarGroup);
 		if(hideSearchBar) %init(hideSearchBarGroup);
+		if(organizeSettings) initPreferenceOrganizer();
 	}
 }
