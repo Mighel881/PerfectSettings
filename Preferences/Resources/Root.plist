@@ -15,10 +15,6 @@
 		<dict>
         	<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>ORGANIZE SETTINGS</string>
-			<key>footerText</key>
-			<string>SHOWS 'APPLE APPS', 'TWEAKS' AND '3RD PARTY APPS' SECTIONS ON TOP OF THE SETTINGS PAGE.</string>
         </dict>
 		<dict>
 			<key>cell</key>
@@ -26,7 +22,27 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>enabled</string>
+			<key>label</key>
+			<string>Enabled</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>ORGANIZE SETTINGS</string>
+			<key>footerText</key>
+			<string>SHOWS 'TWEAKS', 'SYSTEM APPS' AND 'APP STORE APPS' SECTIONS ON TOP OF THE SETTINGS PAGE.</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>organizeSettings</string>
 			<key>label</key>
@@ -44,7 +60,7 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>enableCustomTitle</string>
 			<key>label</key>
@@ -56,7 +72,7 @@
 			<key>default</key>
 			<string>PerfectSettings</string>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>customTitle</string>
 			<key>label</key>
@@ -74,7 +90,7 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>roundSearchBar</string>
 			<key>label</key>
@@ -86,7 +102,7 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>hideSearchBar</string>
 			<key>label</key>
@@ -104,7 +120,7 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>disableEdgeToEdgeCells</string>
 			<key>label</key>
@@ -116,7 +132,7 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>hideArrow</string>
 			<key>label</key>
@@ -128,7 +144,7 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>hideCellSeparator</string>
 			<key>label</key>
@@ -146,7 +162,7 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>circleIcons</string>
 			<key>label</key>
@@ -158,11 +174,91 @@
 			<key>default</key>
 			<false/>
 			<key>defaults</key>
-			<string>com.johnzaro.perfectsettings13prefs</string>
+			<string>com.johnzaro.perfectsettingsprefs</string>
 			<key>key</key>
 			<string>hideIcons</string>
 			<key>label</key>
-			<string>Hide Circle Icons</string>
+			<string>Hide Icons</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>UPDATE BADGE</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>hideUpdateBadge</string>
+			<key>label</key>
+			<string>Hide Update Badge</string>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>EXTRA INFORMATION</string>
+			<key>footerText</key>
+			<string>'SHOW IP ADDRESS' OPTION SHOWS IP ADDRESS IN WIFI TABLE CELL.
+
+'SHOW USED CELLULAR DATA' OPTION SHOWS USED CELLULAR DATA IN CELLULAR TABLE CELL.
+
+'SHOW DISK SPACE INFO' OPTION SHOWS DISK SPACE INFORMATION IN GENERAL TABLE CELL.
+
+'SHOW BATTERY HEALTH' OPTION SHOWS BATTERY HEALTH (NOT CURRENT BATTERY LEVEL) IN BATTERY USAGE TABLE CELL.</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>showWifiData</string>
+			<key>label</key>
+			<string>Show IP Address</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>showCellularData</string>
+			<key>label</key>
+			<string>Show Used Cellular Data</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>showDiskSpace</string>
+			<key>label</key>
+			<string>Show Disk Space Info</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>showBatteryHealth</string>
+			<key>label</key>
+			<string>Show Battery Health</string>
 		</dict>
 		<dict>
         	<key>cell</key>
@@ -178,7 +274,7 @@
 			<key>icon</key>
 			<string>github.png</string>
 			<key>url</key>
-   	 		<string>https://github.com/johnzaro/PerfectSettings13</string>
+   	 		<string>https://github.com/johnzaro/PerfectSettings</string>
 		</dict>
  		<dict>
         	<key>cell</key>
@@ -232,6 +328,6 @@
         </dict>
 	</array>
 	<key>title</key>
-	<string>PerfectSettings13</string>
+	<string>PerfectSettings</string>
 </dict>
 </plist>

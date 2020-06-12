@@ -20,7 +20,7 @@ int (*BKSTerminateApplicationForReasonAndReportWithDescription)(NSString *displa
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.font = [UIFont boldSystemFontOfSize: 17];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.text = @"PerfectSettings13";
+        self.titleLabel.text = @"PerfectSettings";
 		self.titleLabel.alpha = 0.0;
         self.titleLabel.textColor = [UIColor blackColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;

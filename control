@@ -1,7 +1,7 @@
 Package: com.johnzaro.perfectsettings13
-Name: PerfectSettings13
+Name: PerfectSettings
 Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.14), firmware (>= 13)
-Version: 1.4
+Version: 1.5
 Architecture: iphoneos-arm
 Description: Add apple apps, tweaks and 3rd party apps section to the top of settings screen , disable Edge To Edge Cells, circle Settings Icons, hide icons, custom title, hide arrow, hide separator, round search bar, hide search bar
 Maintainer: Johnzaro <johnzrgnns@gmail.com>
