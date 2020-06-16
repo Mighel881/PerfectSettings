@@ -12,8 +12,17 @@ int (*BKSTerminateApplicationForReasonAndReportWithDescription)(NSString *displa
 	{
         PSTAppearanceSettings *appearanceSettings = [[PSTAppearanceSettings alloc] init];
         self.hb_appearanceSettings = appearanceSettings;
-        self.closeSettingsButton = [[UIBarButtonItem alloc] initWithTitle: @"Close Settings" style: UIBarButtonItemStylePlain target: self action: @selector(closeSettings)];
-        self.closeSettingsButton.tintColor = [UIColor blackColor];
+
+        UIButton *button = [UIButton buttonWithType: UIButtonTypeCustom];
+        button.titleLabel.numberOfLines = 2;
+        button.titleLabel.textAlignment = 1;
+        button.titleLabel.font = [UIFont systemFontOfSize: 17];
+        [button addTarget: self action: @selector(closeSettings) forControlEvents: UIControlEventPrimaryActionTriggered];
+        [button setTitle: @"Close\nSettings" forState: UIControlStateNormal];
+        [button sizeToFit];
+
+        self.closeSettingsButton = [[UIBarButtonItem alloc] initWithCustomView: button];
+        self.closeSettingsButton.tintColor = [UIColor whiteColor];
         self.navigationItem.rightBarButtonItem = self.closeSettingsButton;
 
         self.navigationItem.titleView = [UIView new];
@@ -22,7 +31,7 @@ int (*BKSTerminateApplicationForReasonAndReportWithDescription)(NSString *displa
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         self.titleLabel.text = @"PerfectSettings";
 		self.titleLabel.alpha = 0.0;
-        self.titleLabel.textColor = [UIColor blackColor];
+        self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navigationItem.titleView addSubview: self.titleLabel];
 
@@ -44,22 +53,7 @@ int (*BKSTerminateApplicationForReasonAndReportWithDescription)(NSString *displa
     CGRect frame = self.table.bounds;
     frame.origin.y = -frame.size.height;
 
-    self.navigationController.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:1.00 green:0.58 blue:0.00 alpha:1.0];
-    [self.navigationController.navigationController.navigationBar setShadowImage: [UIImage new]];
-    self.navigationController.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    self.navigationController.navigationController.navigationBar.translucent = NO;
-}
-
-- (void)viewDidAppear: (BOOL)animated
-{
-    [super viewDidAppear: animated];
-    [self.navigationController.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName : [UIColor blackColor]}];
-}
-
-- (void)viewWillDisappear: (BOOL)animated
-{
-    [super viewWillDisappear: animated];
-    [self.navigationController.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName : [UIColor blackColor]}];
+    self.navigationController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 - (void)scrollViewDidScroll: (UIScrollView*)scrollView

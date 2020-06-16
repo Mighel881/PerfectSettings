@@ -94,8 +94,12 @@ static void getBatteryHealth()
 	BatteryHealthUIController *healthUIController = [[[batteryUsageBundle classNamed: @"BatteryHealthUIController"] alloc] init];
 	[healthUIController updateData];
 	[healthUIController updateMaximumCapacity];
-	
-	batteryHealthString = [NSString stringWithFormat: @"%i%%", [healthUIController maximumCapacityPercent]];
+
+	int percentage = [healthUIController maximumCapacityPercent];
+	if(percentage > 0 && percentage <= 100)
+		batteryHealthString = [NSString stringWithFormat: @"%i%%", percentage];
+	else
+		batteryHealthString = @"N/A";
 }
 
 %group enableCustomTitleGroup
