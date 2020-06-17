@@ -10,16 +10,16 @@ static double const DECIMAL_GIGABYTE = 1000 * 1000 * 1000;
 
 static HBPreferences *pref;
 static BOOL enabled;
+static BOOL organizeSettings;
 static BOOL enableCustomTitle;
 static NSString *customTitle;
-static BOOL disableEdgeToEdgeCells;
-static BOOL circleIcons;
-static BOOL hideIcons;
-static BOOL hideArrow;
-static BOOL hideCellSeparator;
 static BOOL roundSearchBar;
 static BOOL hideSearchBar;
-static BOOL organizeSettings;
+static BOOL disableEdgeToEdgeCells;
+static BOOL hideArrow;
+static BOOL hideCellSeparator;
+static BOOL circleIcons;
+static BOOL hideIcons;
 static BOOL hideUpdateBadge;
 static BOOL showWifiData;
 static BOOL showCellularData;
@@ -157,13 +157,14 @@ static void getBatteryHealth()
 	{
 		%orig;
 
-		if(circleIcons && [self imageView])
+		if(circleIcons && !hideIcons && [self imageView])
 		{
 			[[[self imageView] layer] setCornerRadius: 14.5]; // full width = 29
 			[[[self imageView] layer] setMasksToBounds: YES];
 		}
 
-		if(hideArrow) [self setForceHideDisclosureIndicator: YES];
+		if(hideArrow)
+			[self setForceHideDisclosureIndicator: YES];
 	}
 
 	%end
@@ -295,76 +296,85 @@ static void getBatteryHealth()
 
 %ctor
 {
-	@autoreleasepool
+	pref = [[HBPreferences alloc] initWithIdentifier: @"com.johnzaro.perfectsettingsprefs"];
+	[pref registerDefaults:
+	@{
+		@"enabled": @NO,
+		@"tweaksTitle": @"Tweaks",
+		@"systemAppsTitle": @"System Apps",
+		@"appStoreAppsTitle": @"App Store Apps",
+		@"enableCustomTitle": @NO,
+		@"customTitle": @"PerfectSettings",
+		@"disableEdgeToEdgeCells": @NO,
+		@"circleIcons": @NO,
+		@"hideIcons": @NO,
+		@"hideArrow": @NO,
+		@"hideCellSeparator": @NO,
+		@"roundSearchBar": @NO,
+		@"hideSearchBar": @NO,
+		@"organizeSettings": @NO,
+		@"hideUpdateBadge": @NO,
+		@"showWifiData": @NO,
+		@"showCellularData": @NO,
+		@"showDiskSpace": @NO,
+		@"showBatteryHealth": @NO,
+	}];
+
+	enabled = [pref boolForKey: @"enabled"];
+	if(enabled)
 	{
-		pref = [[HBPreferences alloc] initWithIdentifier: @"com.johnzaro.perfectsettingsprefs"];
-		[pref registerDefaults:
-		@{
-			@"enabled": @NO,
-			@"enableCustomTitle": @NO,
-			@"customTitle": @"PerfectSettings",
-			@"disableEdgeToEdgeCells": @NO,
-			@"circleIcons": @NO,
-			@"hideIcons": @NO,
-			@"hideArrow": @NO,
-			@"hideCellSeparator": @NO,
-			@"roundSearchBar": @NO,
-			@"hideSearchBar": @NO,
-			@"organizeSettings": @NO,
-			@"hideUpdateBadge": @NO,
-			@"showWifiData": @NO,
-			@"showCellularData": @NO,
-			@"showDiskSpace": @NO,
-			@"showBatteryHealth": @NO,
-		}];
+		enableCustomTitle = [pref boolForKey: @"enableCustomTitle"];
+		customTitle = [pref objectForKey: @"customTitle"];
+		disableEdgeToEdgeCells = [pref boolForKey: @"disableEdgeToEdgeCells"];
+		circleIcons = [pref boolForKey: @"circleIcons"];
+		hideIcons = [pref boolForKey: @"hideIcons"];
+		hideArrow = [pref boolForKey: @"hideArrow"];
+		hideCellSeparator = [pref boolForKey: @"hideCellSeparator"];
+		roundSearchBar = [pref boolForKey: @"roundSearchBar"];
+		hideSearchBar = [pref boolForKey: @"hideSearchBar"];
+		organizeSettings = [pref boolForKey: @"organizeSettings"];
+		hideUpdateBadge = [pref boolForKey: @"hideUpdateBadge"];
+		showWifiData = [pref boolForKey: @"showWifiData"];
+		showCellularData = [pref boolForKey: @"showCellularData"];
+		showDiskSpace = [pref boolForKey: @"showDiskSpace"];
+		showBatteryHealth = [pref boolForKey: @"showBatteryHealth"];
 
-		enabled = [pref boolForKey: @"enabled"];
-		if(enabled)
+		if(showCellularData || showDiskSpace)
 		{
-			enableCustomTitle = [pref boolForKey: @"enableCustomTitle"];
-			customTitle = [pref objectForKey: @"customTitle"];
-			disableEdgeToEdgeCells = [pref boolForKey: @"disableEdgeToEdgeCells"];
-			circleIcons = [pref boolForKey: @"circleIcons"];
-			hideIcons = [pref boolForKey: @"hideIcons"];
-			hideArrow = [pref boolForKey: @"hideArrow"];
-			hideCellSeparator = [pref boolForKey: @"hideCellSeparator"];
-			roundSearchBar = [pref boolForKey: @"roundSearchBar"];
-			hideSearchBar = [pref boolForKey: @"hideSearchBar"];
-			organizeSettings = [pref boolForKey: @"organizeSettings"];
-			hideUpdateBadge = [pref boolForKey: @"hideUpdateBadge"];
-			showWifiData = [pref boolForKey: @"showWifiData"];
-			showCellularData = [pref boolForKey: @"showCellularData"];
-			showDiskSpace = [pref boolForKey: @"showDiskSpace"];
-			showBatteryHealth = [pref boolForKey: @"showBatteryHealth"];
-
-			if(showCellularData || showDiskSpace)
-			{
-				numberFormatter = [[NSNumberFormatter alloc] init];
-				[numberFormatter setLocale: [NSLocale currentLocale]];
-				[numberFormatter setNumberStyle: NSNumberFormatterDecimalStyle];
-				[numberFormatter setMaximumFractionDigits: 2];
-			}
-
-			if(enableCustomTitle)
-				%init(enableCustomTitleGroup);
-			if(disableEdgeToEdgeCells)
-				%init(disableEdgeToEdgeCellsGroup);
-			if(circleIcons || hideArrow)
-				%init(editPSTableCellGroup);
-			if(hideIcons)
-				%init(hideIconsGroup);
-			if(hideCellSeparator)
-				%init(hideCellSeparatorGroup);
-			if(roundSearchBar)
-				%init(roundSearchBarGroup);
-			if(hideSearchBar)
-				%init(hideSearchBarGroup);
-			if(hideUpdateBadge)
-				%init(hideUpdateBadgeGroup);
-			if(showWifiData || showCellularData || showDiskSpace || showBatteryHealth)
-				%init(showMoreInfoGroup);
-			if(organizeSettings)
-				initPreferenceOrganizer();
+			numberFormatter = [[NSNumberFormatter alloc] init];
+			[numberFormatter setLocale: [NSLocale currentLocale]];
+			[numberFormatter setNumberStyle: NSNumberFormatterDecimalStyle];
+			[numberFormatter setMaximumFractionDigits: 2];
 		}
+
+		if(organizeSettings)
+			initPreferenceOrganizer();
+		
+		if(enableCustomTitle)
+			%init(enableCustomTitleGroup);
+		
+		if(disableEdgeToEdgeCells)
+			%init(disableEdgeToEdgeCellsGroup);
+		
+		if(circleIcons || hideArrow)
+			%init(editPSTableCellGroup);
+		
+		if(hideIcons)
+			%init(hideIconsGroup);
+		
+		if(hideCellSeparator)
+			%init(hideCellSeparatorGroup);
+		
+		if(roundSearchBar)
+			%init(roundSearchBarGroup);
+		
+		if(hideSearchBar)
+			%init(hideSearchBarGroup);
+		
+		if(hideUpdateBadge)
+			%init(hideUpdateBadgeGroup);
+		
+		if(showWifiData || showCellularData || showDiskSpace || showBatteryHealth)
+			%init(showMoreInfoGroup);
 	}
 }

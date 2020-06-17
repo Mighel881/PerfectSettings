@@ -34,7 +34,7 @@
 			<key>label</key>
 			<string>ORGANIZE SETTINGS</string>
 			<key>footerText</key>
-			<string>SHOWS 'TWEAKS', 'SYSTEM APPS' AND 'APP STORE APPS' SECTIONS ON TOP OF THE SETTINGS PAGE.</string>
+			<string>ORGANIZES SETTINGS INTO 'TWEAKS', 'SYSTEM APPS' AND 'APP STORE APPS' CATEGORIES</string>
         </dict>
 		<dict>
 			<key>cell</key>
@@ -49,10 +49,72 @@
 			<string>Organize Settings</string>
 		</dict>
 		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>default</key>
+			<string>Tweaks</string>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>tweaksTitle</string>
+			<key>label</key>
+			<string>Tweaks Title</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>default</key>
+			<string>System Apps</string>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>systemAppsTitle</string>
+			<key>label</key>
+			<string>System Apps Title</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>default</key>
+			<string>App Store Apps</string>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>appStoreAppsTitle</string>
+			<key>label</key>
+			<string>App Store Apps Title</string>
+		</dict>
+		<dict>
         	<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>TITLE</string>
+			<string>ORGANIZED SETTINGS LOCATION</string>
+        </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>defaults</key>
+			<string>com.johnzaro.perfectsettingsprefs</string>
+			<key>key</key>
+			<string>organizedSettingsPosition</string>
+			<key>validTitles</key>
+			<array>
+      			<string>Top</string>
+      			<string>Bottom</string>
+			</array>
+      		<key>validValues</key>
+			<array>
+      			<string>0</string>
+      			<string>1</string>
+			</array>
+		</dict>
+		<dict>
+        	<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>SETTINGS APP TITLE</string>
         </dict>
 		<dict>
 			<key>cell</key>

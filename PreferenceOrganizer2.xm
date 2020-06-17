@@ -25,11 +25,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "PreferenceOrganizer2.h"
+#import <Cephei/HBPreferences.h>
 
 static NSMutableArray *AppleAppSpecifiers, *TweakSpecifiers, *AppStoreAppSpecifiers;
 
 static BOOL ddiIsMounted = 0;
 static BOOL deviceShowsTVProviders = 0;
+
+static HBPreferences *pref;
+static NSString *tweaksTitle;
+static NSString *systemAppsTitle;
+static NSString *appStoreAppsTitle;
+static NSInteger organizedSettingsPosition;
 
 @implementation AppleAppSpecifiersController
 
@@ -150,10 +157,9 @@ static BOOL deviceShowsTVProviders = 0;
 				}
 			}
 
-			int currentIndex = 2;
-
-			[specifiers insertObject: [PSSpecifier groupSpecifierWithName: nil] atIndex: currentIndex]; // add group to separate from the group below
-			currentIndex++;
+			PSSpecifier *cydiaSpecifier;
+			PSSpecifier *appleSpecifier;
+			PSSpecifier *appstoreSpecifier;
 
 			TweakSpecifiers = organizableSpecifiers[@"TWEAKS"];
 			if([TweakSpecifiers count] != 0 && ((PSSpecifier*)TweakSpecifiers[0]).cellType == 0 && ((PSSpecifier*)TweakSpecifiers[1]).cellType == 0)
@@ -161,10 +167,8 @@ static BOOL deviceShowsTVProviders = 0;
 			if(TweakSpecifiers)
 			{
 				[specifiers removeObjectsInArray: TweakSpecifiers];
-				PSSpecifier *cydiaSpecifier = [PSSpecifier preferenceSpecifierNamed: @"Tweaks" target: self set: NULL get: NULL detail: [TweakSpecifiersController class] cell: [PSTableCell cellTypeFromString: @"PSLinkCell"] edit: nil];
+				cydiaSpecifier = [PSSpecifier preferenceSpecifierNamed: tweaksTitle target: self set: NULL get: NULL detail: [TweakSpecifiersController class] cell: [PSTableCell cellTypeFromString: @"PSLinkCell"] edit: nil];
 				[cydiaSpecifier setProperty: [UIImage imageWithContentsOfFile: @"/Library/PreferenceBundles/PerfectSettingsPrefs.bundle/Tweaks.png"] forKey: @"iconImage"];
-				[specifiers insertObject: cydiaSpecifier atIndex: currentIndex];
-				currentIndex++;
 			}
 			
 			AppleAppSpecifiers = organizableSpecifiers[@"STORE"];
@@ -179,12 +183,10 @@ static BOOL deviceShowsTVProviders = 0;
 						[specifiers removeObject: specifier];
 				}
 				
-				PSSpecifier *appleSpecifier = [PSSpecifier preferenceSpecifierNamed: @"System Apps" target: self set: NULL get: NULL detail: [AppleAppSpecifiersController class] cell: [PSTableCell cellTypeFromString: @"PSLinkCell"] edit: nil];
+				appleSpecifier = [PSSpecifier preferenceSpecifierNamed: systemAppsTitle target: self set: NULL get: NULL detail: [AppleAppSpecifiersController class] cell: [PSTableCell cellTypeFromString: @"PSLinkCell"] edit: nil];
 				[appleSpecifier setProperty: [UIImage _applicationIconImageForBundleIdentifier: @"com.apple.Preferences" format: 0 scale: [UIScreen mainScreen].scale] forKey: @"iconImage"];
 
 				[appleSpecifier setIdentifier: @"APPLE_APPS"]; // Setting this identifier for later use...
-				[specifiers insertObject: appleSpecifier atIndex: currentIndex];
-				currentIndex++;
 
 				NSMutableArray *specifiersToRemove = [[NSMutableArray alloc] init]; // Move deleted group specifiers to the end...
 				for(int i = 0; i < specifiers.count; i++)
@@ -201,10 +203,40 @@ static BOOL deviceShowsTVProviders = 0;
 			if(AppStoreAppSpecifiers)
 			{
 				[specifiers removeObjectsInArray: AppStoreAppSpecifiers];
-				PSSpecifier *appstoreSpecifier = [PSSpecifier preferenceSpecifierNamed: @"App Store Apps" target: self set: NULL get: NULL detail: [AppStoreAppSpecifiersController class] cell: [PSTableCell cellTypeFromString: @"PSLinkCell"] edit: nil];
+				appstoreSpecifier = [PSSpecifier preferenceSpecifierNamed: appStoreAppsTitle target: self set: NULL get: NULL detail: [AppStoreAppSpecifiersController class] cell: [PSTableCell cellTypeFromString: @"PSLinkCell"] edit: nil];
 				[appstoreSpecifier setProperty: [UIImage _applicationIconImageForBundleIdentifier: @"com.apple.AppStore" format: 0 scale: [UIScreen mainScreen].scale] forKey: @"iconImage"];
-				[specifiers insertObject: appstoreSpecifier atIndex: currentIndex];
+			}
+
+			if(organizedSettingsPosition == 0) // put categories on top of settings page
+			{
+				int currentIndex = 2;
+				[specifiers insertObject: [PSSpecifier groupSpecifierWithName: nil] atIndex: currentIndex]; // add group to separate from the group below
 				currentIndex++;
+				if(TweakSpecifiers)
+				{
+					[specifiers insertObject: cydiaSpecifier atIndex: currentIndex];
+					currentIndex++;
+				}
+				if(AppleAppSpecifiers)
+				{
+					[specifiers insertObject: appleSpecifier atIndex: currentIndex];
+					currentIndex++;
+				}
+				if(AppStoreAppSpecifiers)
+				{
+					[specifiers insertObject: appstoreSpecifier atIndex: currentIndex];
+					currentIndex++;
+				}
+			}
+			else // put categories at the bottom of settings page
+			{
+				[specifiers addObject: [PSSpecifier groupSpecifierWithName: nil]];
+				if(TweakSpecifiers)
+					[specifiers addObject: cydiaSpecifier];
+				if(AppleAppSpecifiers)
+					[specifiers addObject: appleSpecifier];
+				if(AppStoreAppSpecifiers)
+					[specifiers addObject: appstoreSpecifier];
 			}
 		});
 
@@ -239,5 +271,11 @@ static BOOL deviceShowsTVProviders = 0;
 
 void initPreferenceOrganizer()
 {
+	pref = [[HBPreferences alloc] initWithIdentifier: @"com.johnzaro.perfectsettingsprefs"];
+	tweaksTitle = [pref objectForKey: @"tweaksTitle"];
+	systemAppsTitle = [pref objectForKey: @"systemAppsTitle"];
+	appStoreAppsTitle = [pref objectForKey: @"appStoreAppsTitle"];
+	organizedSettingsPosition = [pref integerForKey: @"organizedSettingsPosition"];
+
 	%init;
 }
